@@ -119,7 +119,7 @@ export class ProjectController {
     const statisticalMaintenanceFree = await this.projectService.statisticalMaintenanceFree()
     // Danh sách công trình bảo trì mất phí
     const statisticalMaintenance = await this.projectService.statisticalMaintenance()
-    //  console.log(data1)
+    //  
     return { statisticalWarranty, statisticalMaintenanceFree, statisticalMaintenance }
   }
 
@@ -212,7 +212,7 @@ export class ProjectController {
       oh: createProjectDto.oh,
       phongMay: createProjectDto.phongMay,
     }
-    console.log('infor_product', infor_product);
+    
     const newProject = {
       ...createProjectDto,
       infor_product: JSON.stringify(infor_product),
@@ -251,7 +251,7 @@ export class ProjectController {
         }
       }
     }
-    console.log("🚀 ~ ProjectController ~ create ~ Project:", Project)
+    
     let workflowSteps = await this.workflowStepsService.findWorkflow(+createProjectDto.workflow)
     const stepsArray = JSON.parse(createProjectDto.steps)
     const validStepIds = workflowSteps.map((step) => step.id)
@@ -310,9 +310,8 @@ export class ProjectController {
     @Req() req: Request,
     @Param('id') id: number,
   ) {
-    console.log(updateProjectDto)
+    
     if (!updateProjectDto.checkEdit) {
-      console.log('check')
       if (updateProjectDto.address) {
         updateProjectDto.address = `${updateProjectDto.city}, ${updateProjectDto.district},${updateProjectDto.ward}, ${updateProjectDto.address}`
       } else {
@@ -333,6 +332,8 @@ export class ProjectController {
         const duplicates = Object.keys(count).filter((key) => count[key] > 1)
         const result = [...new Set([...arr, ...duplicates])]
         const result2 = result.filter((item) => item !== '')
+        console.log(result2)
+        console.log(result2.length)
         if (result2.length > 0) {
           result.forEach(async (staff) => {
             const Staff = await this.staffsService.findOne(+staff)
@@ -342,6 +343,22 @@ export class ProjectController {
               staff: Staff,
               project: project,
             })
+
+            // SEND MAIL
+const contentSendMail = await this.sendMailService.notificationNewProjectManager(
+  Staff.full_name,
+  Staff.email,
+  'Thông báo công trình phụ trách mới !!!',
+  `Chúng tôi xin thông báo về công trình phụ trách mới của bạn tại <strong>Thang máy Tesla </strong> <br> <div class="password">Bạn cần phụ trách công trình:${project.full_name}</div> `,
+)
+            this.mailerService
+            .sendMail(contentSendMail)
+            .then(() => { })
+            .catch((error) => {
+              console.error('Error sending email:', error)
+              return { message: 'Gửi mail thất bại!', error: error.message }
+            })
+
             await this.projectStaffService.create({
               project: project,
               staff: Staff,
@@ -595,7 +612,7 @@ export class ProjectController {
   async findOne(@Param('id') id: number, @Req() req: Request) {
     const departments = await this.departmensService.findAll()
     const project = await this.projectService.findOne(+id)
-    console.log("🚀 ~ ProjectController ~ findOne ~ project:", project)
+    
     const token = req.cookies['token']
     const payload = await this.staffsService.payload(token)
     const inforAccount = await this.staffsService.findOne(payload.id)
@@ -641,11 +658,10 @@ export class ProjectController {
   @Get('/checkEdit/:projectEdit')
   @Render('admin/projects/checkEdit_project')
   async checkEdit(@Param('projectEdit') projectEditId: number) {
-
     const projectEdit = await this.projectEditService.findOne(+projectEditId)
-    console.log("🚀 ~ ProjectController ~ checkEdit ~ projectEdit:", projectEdit)
+    
     const project = await this.projectService.findOne(+projectEdit.project.id)
-    console.log("🚀 ~ ProjectController ~ checkEdit ~ project:", project)
+    
     return { projectEdit, project}
   }
 }

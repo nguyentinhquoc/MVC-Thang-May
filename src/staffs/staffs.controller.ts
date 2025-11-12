@@ -197,19 +197,16 @@ export class StaffsController {
   findOne (@Param('id') id: string) {
     return this.staffsService.findOne(+id)
   }
-  @SetMetadata('permision', '5')
   @Get('/payroll/:id')
   @Render('admin/staff/payroll_detail')
   async findPayrollDetail (@Param('id') id: string) {
     const infoStaffs = await this.staffsService.findPayrollWStaff(+id)
-    const staff = await this.staffsService.findOne(+id)
     const Staff = await this.staffsService.findOne(+id)
+    console.log()
     const permisionPhanQuyen = await this.permisionService.findPhanqQuyen(+id)
     const permision = await this.permisionService.findAll()
-
     return {
       Staff,
-      staff,
       infoStaffs,
       permision,
       permisionPhanQuyen,
@@ -221,8 +218,8 @@ export class StaffsController {
   @Post('/payroll/:id')
   @Redirect('back')
   async phaQuyen (@Param('id') id: string, @Body('quyen') quyen: any) {
-    await this.permisionService.udpatePhanQuyen(+id) // Xóa hết quyền của người dùng
-    await this.permisionService.createQuyen(+id, quyen) // Xóa hết quyền của người dùng
+    await this.permisionService.udpatePhanQuyen(+id) 
+    await this.permisionService.createQuyen(+id, quyen) 
     return {}
   }
   @SetMetadata('permision', '3')

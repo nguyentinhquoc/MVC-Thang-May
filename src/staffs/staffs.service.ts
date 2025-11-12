@@ -133,7 +133,7 @@ export class StaffsService {
   findOne (id: number) {
     return this.staffsRepository.findOne({
       where: {id},
-      relations: ['department', 'position'],
+      relations: ['department', 'position', 'permisions'],
     })
   }
   findOnew (email: string) {

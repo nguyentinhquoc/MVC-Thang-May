@@ -21,6 +21,7 @@ INSERT INTO `permision` (`id`, `name`, `code`, `description`, `codeParent`) VALU
 (7, 'Quản lý công trình', '7', 'Cho phép quản lý công trình. (Đề xuất: Admin, Nhân viên kinh doanh)', ''),
 (8, 'Quản lý bảo trì, bảo hành', '8', 'Cho phép quản lý phần bảo trì và bảo hành. (Đề xuất: Admin, Nhân viên kinh doanh)', ''),
 (9, 'Danh sách công trình phụ trách', '9', 'Hiển thị danh sách các công trình mà nhân viên kinh doanh đang phụ trách (Đề xuất: Nhân viên kinh doanh)', '');
+(10, 'Thống kê công trình', '10', 'Cho phép xem danh sách công trình bảo trì theo địa chỉ', '');
 
 INSERT INTO `position` (`id`, `name`, `description`, `createdAt`, `updatedAt`, `deletedAt`) VALUES
 (1, 'Trưởng phòng 12', 'Giám Đốc', '2024-12-31 10:09:24.000000', '2025-06-25 13:56:44.000000', NULL),
