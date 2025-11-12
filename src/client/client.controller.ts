@@ -138,7 +138,7 @@ export class ClientController {
     const token = req.cookies["token"];
     if (token) {
       const images = files.map((file) => file.filename);
-      const image = JSON.stringify(images);
+      const image =  files.length > 0 ? JSON.stringify(images) : null;
       const payload = await this.staffsService.payload(token);
       const idStaff = payload.id;
       const staff = await this.staffsService.findOne(+idStaff);

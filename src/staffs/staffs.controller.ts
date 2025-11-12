@@ -202,7 +202,6 @@ export class StaffsController {
   async findPayrollDetail (@Param('id') id: string) {
     const infoStaffs = await this.staffsService.findPayrollWStaff(+id)
     const Staff = await this.staffsService.findOne(+id)
-    console.log()
     const permisionPhanQuyen = await this.permisionService.findPhanqQuyen(+id)
     const permision = await this.permisionService.findAll()
     return {

@@ -418,12 +418,22 @@ ${hours}:${minutes}:${seconds}`; } %>
                               </span>
                               <div class="flex-1">
                                 <h5 class="mb-2 fs-9"><%= s.staff.full_name %></h5>
-                                <% if (s.image && Array.isArray(s.image)) { %>
-                                <div class="d-flex">
-                                  <% s.image.forEach(img => { %>
-                                  <span class="fa-stack ms-n1 me-3 m-1 avatar">
-                                    <img class="rounded-soft" src="/images/project/<%= img %>" alt="Hình ảnh" />
-                                  </span>
+<% 
+  let images = [];
+  if (s.image) {
+    try {
+      images = JSON.parse(s.image);
+    } catch (e) {
+      images = [];
+    }
+  }
+%>
+<% if (images && images.length > 0) { %>
+  <div class="d-flex">
+    <% images.forEach(img => { %>
+                                  <div style="min-height: 200px; max-height: 200px; overflow: hidden;">
+                                    <img class="rounded-soft" src="/images/project/<%= img %>" alt="Hình ảnh"  style="min-height: 200px; max-height: 200px; object-fit: cover;"/>
+                                  </div>
                                   <% }) %>
                                 </div>
                                 <% } else { %>
