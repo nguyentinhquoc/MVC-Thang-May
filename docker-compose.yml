@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb_quan_ly_thang_may
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: wavebear
+      MARIADB_DATABASE: quan_ly_thang_may
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./export.sql:/docker-entrypoint-initdb.d/export.sql
+    networks:
+      - app-network
+
+  app:
+    build: .
+    container_name: nestjs_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: mariadb
+      DATABASE_PORT: 3306
+      DATABASE_USER: root
+      DATABASE_PASS: wavebear
+      DATABASE_NAME: quan_ly_thang_may
+    depends_on:
+      - mariadb
+    networks:
+      - app-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  app-network:
+    driver: bridge

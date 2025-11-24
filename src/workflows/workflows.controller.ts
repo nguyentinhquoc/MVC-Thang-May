@@ -21,7 +21,7 @@ export class WorkflowsController {
     const workflows = await this.workflowsService.create(createWorkflowDto)
     return res.redirect(`/workflows/${workflows}`)
   }
-  @SetMetadata('permision', '4')
+  @SetMetadata('permision', 'MANAGE_WORKFLOWS')
   @Get()
   @Render('admin/workflows/workflows')
   async findAll () {
@@ -30,7 +30,7 @@ export class WorkflowsController {
       workflows,
     }
   }
-  @SetMetadata('permision', '4')
+  @SetMetadata('permision', 'MANAGE_WORKFLOWS')
   @Get(':id')
   @Render('admin/workflows/edit_workflows')
   async findOne (@Param('id') id: number) {
@@ -65,14 +65,14 @@ export class WorkflowsController {
       canEdit,
     }
   }
-  @SetMetadata('permision', '4')
+  @SetMetadata('permision', 'MANAGE_WORKFLOWS')
 
   @Patch()
   async update (@Body('id') id: string, @Body() updateWorkflowDto: UpdateWorkflowDto, @Res() res: Response) {
     await this.workflowsService.update(+id, updateWorkflowDto)
     return res.redirect('/workflows')
   }
-  @SetMetadata('permision', '4')
+  @SetMetadata('permision', 'MANAGE_WORKFLOWS')
 
   @Patch(':id')
   async updateQt (@Param('id') id: string, @Body() updateWorkflowDto: UpdateWorkflowDto, @Res() res: Response) {

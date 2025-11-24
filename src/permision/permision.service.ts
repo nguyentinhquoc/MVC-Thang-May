@@ -14,18 +14,18 @@ export class PermisionService {
     return 'This action adds a new permision';
   }
   // Lấy ra quyền của nhân viên từ bảng nhiều-nhiều (giả sử staffs và permision là quan hệ many-to-many)
-  async checkPermision(idStaff: number, idPermision: number) {
+  async checkPermision(idStaff: number, coedPermision: string) {
     // Tìm xem nhân viên này có quyền này không thông qua bảng liên kết many-to-many
     const permision = await this.permisionRepository.findOne({
       where: {
-        id: idPermision,
+        code: coedPermision,
         staffs: {
           id: idStaff
         }
       },
       relations: ['staffs']
     });
-   return permision.staffs[0].status ? true : false
+   return permision?.staffs[0].status ? true : false
   }
   async findAll() {
     const permissions = await this.permisionRepository.find({
@@ -50,7 +50,6 @@ export class PermisionService {
   }
   async finByStaff(idStaff: number) {
     const permissions = await this.permisionRepository.find({
-      select: ['id'],
       where: {
         staffs: {
           id: idStaff
@@ -61,8 +60,8 @@ export class PermisionService {
       },
     });
     // Extract IDs and push them into an array
-    const permissionIds: number[] = permissions.map(permission => permission.id);
-    return permissionIds;
+    const permissionCodes: string[] = permissions.map(permission => permission.code);
+    return permissionCodes;
   }
   async udpatePhanQuyen(idStaff: number) {
     await this.permisionRepository.manager.createQueryBuilder()

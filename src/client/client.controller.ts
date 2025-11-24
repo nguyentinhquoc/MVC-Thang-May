@@ -42,7 +42,7 @@ export class ClientController {
   create(@Body() createClientDto: CreateClientDto) {
     return this.clientService.create(createClientDto);
   }
-  @SetMetadata('permision', '9')
+  @SetMetadata('permision', 'VIEW_ASSIGNED_PROJECTS')
   @Get("list-project-responsibility")
   @Render("client/list_project_responsibility")
   async list_project_responsibility(@Res() res: Response, @Req() req: Request) {

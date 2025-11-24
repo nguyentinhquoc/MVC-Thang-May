@@ -54,7 +54,7 @@ export class AppController {
     }, {})
     return {workflowSteps}
   }
-  @SetMetadata('permision', '1')
+  @SetMetadata('permision', 'VIEW_DASHBOARD')
   @Get()
   @Render('admin/index')
   async renderIndexadmin (@Req() req: Request) {

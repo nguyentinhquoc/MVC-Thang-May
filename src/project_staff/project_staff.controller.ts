@@ -8,7 +8,7 @@ export class ProjectStaffController {
     private readonly projectStaffService: ProjectStaffService,
     private readonly targetBusinesService: TargetBusinesService,
   ) {}
-  @SetMetadata('permision', '5')
+  @SetMetadata('permision', 'MANAGE_SALES_STAFF')
   @Get('busines/:idStaff')
   @Render('admin/staff/busines_detail')
   async findBusinesDeatil(@Param('idStaff') id: string) {

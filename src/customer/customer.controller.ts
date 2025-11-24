@@ -25,7 +25,7 @@ export class CustomerController {
     await this.customerService.create(createCustomerDto)
     return res.redirect('/customer/infor')
   }
-  @SetMetadata('permision', '6')
+  @SetMetadata('permision', 'MANAGE_PLANNED_PROJECTS')
   @Get('add')
   @Render('admin/customer/add')
   async addCustomer(@Req() req: Request) {
@@ -46,7 +46,7 @@ export class CustomerController {
       staffs,
     }
   }
-  @SetMetadata('permision', '6')
+  @SetMetadata('permision', 'MANAGE_PLANNED_PROJECTS')
   @Get('infor')
   @Render('admin/customer/infor')
   async findAll() {

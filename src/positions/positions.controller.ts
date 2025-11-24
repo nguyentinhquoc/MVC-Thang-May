@@ -11,7 +11,7 @@ export class PositionsController {
     await this.positionsService.create(createPositionDto)
     return res.redirect('/positions')
   }
-  @SetMetadata('permision', '2')
+  @SetMetadata('permision', 'VIEW_DEPARTMENTS')
   @Get()
   @Render('admin/positions/positions')
   async findAll () {
@@ -21,7 +21,7 @@ export class PositionsController {
       activeMenu:"positions"
     }
   }
-  @SetMetadata('permision', '2')
+  @SetMetadata('permision', 'VIEW_DEPARTMENTS')
   @Patch()
   async update (@Body('id') id: string, @Body() updatePositionDto: UpdatePositionDto, @Res() res: Response) {
     await this.positionsService.update(+id, updatePositionDto)

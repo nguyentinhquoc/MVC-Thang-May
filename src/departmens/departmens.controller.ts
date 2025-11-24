@@ -17,7 +17,7 @@ import { Response } from 'express'
 @Controller('departmens')
 export class DepartmensController {
   constructor(private readonly departmensService: DepartmensService) {}
-  @SetMetadata('permision', '2')
+  @SetMetadata('permision', 'VIEW_DEPARTMENTS')
   @Post()
   async create(@Body() createDepartmenDto: CreateDepartmenDto, @Res() res: Response) {
     const createDepartmens = await this.departmensService.create(createDepartmenDto)
@@ -37,7 +37,7 @@ export class DepartmensController {
       })
     }
   }
-  @SetMetadata('permision', '2')
+  @SetMetadata('permision', 'VIEW_DEPARTMENTS')
   @Get()
   @Render('admin/departmens/departmens')
   async findAll() {
@@ -46,13 +46,13 @@ export class DepartmensController {
       departmens,
     }
   }
-  @SetMetadata('permision', '2')
+  @SetMetadata('permision', 'VIEW_DEPARTMENTS')
   @Patch()
   async update(@Body('id') id: string, @Body() updateDepartmenDto: UpdateDepartmenDto, @Res() res: Response) {
     await this.departmensService.update(+id, updateDepartmenDto)
     return res.redirect('/departmens')
   }
-  @SetMetadata('permision', '2')
+  @SetMetadata('permision', 'VIEW_DEPARTMENTS')
   @Delete()
   remove(@Body('id') id: string) {
     return this.departmensService.remove(+id)

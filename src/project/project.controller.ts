@@ -42,7 +42,7 @@ export class ProjectController {
     const maintenances = await this.projectService.findAllByLocaltion(localtionName)
     return { localtionName, maintenances }
   }
-  @SetMetadata('permision', '10')
+  @SetMetadata('permision', 'VIEW_PROJECT_STATISTICS')
   @Get('statistical/export')
   async exportExcel(@Res() res: Response) {
     const workbook = new ExcelJS.Workbook()
@@ -109,7 +109,7 @@ export class ProjectController {
     await workbook.xlsx.write(res)
     res.end()
   }
-  @SetMetadata('permision', '10')
+  @SetMetadata('permision', 'VIEW_PROJECT_STATISTICS')
   @Get('statistical')
   @Render('admin/statistical')
   async getStatistical() {
@@ -508,7 +508,7 @@ const contentSendMail = await this.sendMailService.notificationNewProjectManager
     }
     return res.redirect('back')
   }
-  @SetMetadata('permision', '7')
+  @SetMetadata('permision', 'MANAGE_PROJECTS')
   @Get('/add')
   @Render('admin/projects/add_project')
   async renderAdd(
@@ -547,7 +547,7 @@ const contentSendMail = await this.sendMailService.notificationNewProjectManager
       },
     }
   }
-  @SetMetadata('permision', '7')
+  @SetMetadata('permision', 'MANAGE_PROJECTS')
   @Get('/trang-thai/:status')
   @Render('admin/projects/projects')
   async filterProjects(@Param('status') status: string, @Req() req: Request) {

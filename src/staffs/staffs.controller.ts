@@ -40,25 +40,30 @@ export class StaffsController {
     private projectStepsService: ProjectStepsService,
     private permisionService: PermisionService,
   ) {}
-  @SetMetadata('permision', '5')
+  @SetMetadata('permision', 'MANAGE_SALES_STAFF')
   @Get('busines')
   @Render('admin/staff/busines')
   async findBusinesList () {
     const staffsBusiness = await this.staffsService.findAllBusines()
     return {staffsBusiness}
   }
-  @SetMetadata('permision', '3')
+  @SetMetadata('permision', 'MANAGE_STAFF')
   @Get('/add')
   @Render('admin/staff/add')
   async renderAdd () {
     const positions = await this.positionsService.findAll()
     const departmens = await this.departmensService.findAll()
+    const staffs = await this.staffsService.findAll()
+    const staffEmailOld = staffs.map((staff) => staff.email)
+    const staffPhoneOld = staffs.map((staff) => staff.number_phone)
     return {
       positions,
       departmens,
+      staffEmailOld,
+      staffPhoneOld,
     }
   }
-  @SetMetadata('permision', '3')
+  @SetMetadata('permision', 'MANAGE_STAFF')
   @Post('/add')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -71,7 +76,7 @@ export class StaffsController {
       }),
     }),
   )
-  @SetMetadata('permision', '3')
+  @SetMetadata('permision', 'MANAGE_STAFF')
   async postAdd (
     @UploadedFile() file: Express.Multer.File,
     @Body() createStaffDto: CreateStaffDto,
@@ -79,6 +84,8 @@ export class StaffsController {
   ) {
     if (file) {
       createStaffDto.avatar = file.filename
+    }else{
+      createStaffDto.avatar = 'default-avatar.png'
     }
     const kyTu = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?'
     let matKhau = ''
@@ -157,7 +164,7 @@ export class StaffsController {
     }
     return {}
   }
-  @SetMetadata('permision', '5')
+  @SetMetadata('permision', 'MANAGE_SALES_STAFF')
   @Get('payroll')
   @Render('admin/staff/payroll')
   async findAllPayroll (@Req() req: Request) {
@@ -175,7 +182,7 @@ export class StaffsController {
       activeMenu:"staffs/payroll",
     }
   }
-  @SetMetadata('permision', '3')
+  @SetMetadata('permision', 'MANAGE_STAFF')
   @Get()
   @Render('admin/staff/staff')
   async findAll (@Req() req: Request) {
@@ -192,7 +199,7 @@ export class StaffsController {
       staffs,
     }
   }
-  @SetMetadata('permision', '3')
+  @SetMetadata('permision', 'MANAGE_STAFF')
   @Get(':id')
   findOne (@Param('id') id: string) {
     return this.staffsService.findOne(+id)
@@ -213,7 +220,7 @@ export class StaffsController {
     }
   }
 
-  @SetMetadata('permision', '5')
+  @SetMetadata('permision', 'MANAGE_SALES_STAFF')
   @Post('/payroll/:id')
   @Redirect('back')
   async phaQuyen (@Param('id') id: string, @Body('quyen') quyen: any) {
@@ -221,17 +228,17 @@ export class StaffsController {
     await this.permisionService.createQuyen(+id, quyen) 
     return {}
   }
-  @SetMetadata('permision', '3')
+  @SetMetadata('permision', 'MANAGE_STAFF')
   @Patch(':id')
   update (@Param('id') id: string, @Body() updateStaffDto: UpdateStaffDto) {
     return this.staffsService.update(+id, updateStaffDto)
   }
-  @SetMetadata('permision', '3')
+  @SetMetadata('permision', 'MANAGE_STAFF')
   @Patch('changeStatus/:id')
   async changeStatus (@Param('id') id: string) {
     return await this.staffsService.changeStatus(+id)
   }
-  @SetMetadata('permision', '3')
+  @SetMetadata('permision', 'MANAGE_STAFF')
   @Delete()
   remove (@Body('id') id: string) {
     return this.staffsService.remove(+id)
