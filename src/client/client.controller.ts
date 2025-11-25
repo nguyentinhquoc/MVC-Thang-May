@@ -78,6 +78,7 @@ export class ClientController {
         maintenance,
         projects,
         projectStaffs,
+        activeMenu: "listTask",
       };
     } else {
       res.redirect("/login");

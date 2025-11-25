@@ -52,7 +52,7 @@ export class AppController {
       acc[id].steps.push(workflowStep)
       return acc
     }, {})
-    return {workflowSteps}
+    return {workflowSteps,activeMenu: 'quytrinhmau'}
   }
   @SetMetadata('permision', 'VIEW_DASHBOARD')
   @Get()

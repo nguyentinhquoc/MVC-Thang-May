@@ -421,7 +421,7 @@
           <ul class="nav flex-column ">
             <% if (!role_admin) { %>
               <li>
-                <a class="nav-link " href="/client/list-task" role="button">
+                <a class="nav-link <%= activeMenu === 'listTask' ? 'active' : '' %>" href="/client/list-task" role="button">
                   <div class="d-flex align-items-center">
                     <span class="nav-link-icon"><i class="fa-solid fa-clipboard-list"></i></span>
                     <span class="nav-link-text ps-1">Danh sách nhiệm vụ</span>
@@ -640,7 +640,7 @@
                                     <hr class="mb-0 navbar-vertical-divider" />
                                   </div>
                                 </div>
-                                <a class="nav-link" href="/quy-trinh-lam-viec" role="button">
+                                <a class="nav-link <%= activeMenu === 'quytrinhmau' ? 'active' : '' %>" href="/quy-trinh-lam-viec" role="button">
                                   <div class="d-flex align-items-center">
                                     <span class="nav-link-icon"><i class="fa-regular fa-calendar-check"></i></span>
                                     <span class="nav-link-text ps-1">Quy trình làm việc</span>
