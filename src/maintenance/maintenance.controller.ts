@@ -131,7 +131,7 @@ export class MaintenanceController {
     await this.maintenanceService.create(createMaintenanceDto)
     return res.redirect('back')
   }
-  @SetMetadata('permision', 'MANAGE_MAINTENANCE')
+  @SetMetadata('permision', 'VIEW_MAINTENANCE_STATISTICS')
   @Get()
   @Render('admin/maintenance/maintenance')
   async findAll (@Req() req: Request) {
