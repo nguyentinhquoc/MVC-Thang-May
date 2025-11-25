@@ -420,22 +420,19 @@
           </div>
           <ul class="nav flex-column ">
             <% if (!role_admin) { %>
-              
               <li>
-                    <a class="nav-link " href="/client/list-task" role="button">
-                      <div class="d-flex align-items-center">
+                <a class="nav-link " href="/client/list-task" role="button">
+                  <div class="d-flex align-items-center">
                     <span class="nav-link-icon"><i class="fa-solid fa-clipboard-list"></i></span>
-                        <span class="nav-link-text ps-1">Danh sách nhiệm vụ</span>
-                      </div>
-                    </a>
-                  </li>
-
-
+                    <span class="nav-link-text ps-1">Danh sách nhiệm vụ</span>
+                  </div>
+                </a>
+              </li>
               <% } %>
                 <% if (Array.isArray(permisionArr)) { %>
                   <% if (permisionArr.includes('VIEW_DASHBOARD')) { %>
                     <!-- Thống kê -->
-                    <li >
+                    <li>
                       <a class="nav-link <%= activeMenu === 'VIEW_DASHBOARD' ? 'active' : '' %>" href="/" role="button">
                         <div class="d-flex align-items-center ">
                           <span class="nav-link-icon"><i class="fa-solid fa-house"></i></span>
@@ -445,7 +442,7 @@
                     </li>
                     <% } %>
                       <% if (permisionArr.includes('VIEW_ASSIGNED_PROJECTS')) { %>
-                        <li >
+                        <li>
                           <a class="nav-link <%= activeMenu === 'VIEW_ASSIGNED_PROJECTS' ? 'active' : '' %>"
                             href="/client/list-project-responsibility" role="button">
                             <div class="d-flex align-items-center">
@@ -456,7 +453,7 @@
                         </li>
                         <% } %>
                           <% if (permisionArr.includes('VIEW_PROJECT_STATISTICS')) { %>
-                            <li >
+                            <li>
                               <a class="nav-link <%= activeMenu === 'VIEW_PROJECT_STATISTICS' ? 'active' : '' %>"
                                 href="/project/statistical" role="button">
                                 <div class="d-flex align-items-center">
@@ -467,7 +464,7 @@
                             </li>
                             <% } %>
                               <% if (permisionArr.includes('VIEW_MAINTENANCE_STATISTICS')) { %>
-                                <li >
+                                <li>
                                   <a class="nav-link <%= activeMenu === 'VIEW_MAINTENANCE_STATISTICS' ? 'active' : '' %>"
                                     href="/maintenance" role="button">
                                     <div class="d-flex align-items-center">
@@ -477,14 +474,8 @@
                                   </a>
                                 </li>
                                 <% } %>
-
-
           </ul>
         </li>
-
-
-
-
         <% if (permisionArr.includes('VIEW_DEPARTMENTS') || permisionArr.includes('VIEW_POSITIONS') ||
           permisionArr.includes('MANAGE_STAFF')) { %>
           <li class="nav-item">
@@ -531,7 +522,6 @@
             </ul>
           </li>
           <% } %>
-
             <% if (permisionArr.includes('MANAGE_WORKFLOWS')) { %>
               <li class="nav-item">
                 <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
@@ -542,7 +532,6 @@
                 </div>
                 <ul class="nav flex-column ms-2">
                   <li>
-
                     <a class="nav-link <%= activeMenu === 'MANAGE_WORKFLOWS' ? 'active' : '' %>" href="/workflows"
                       role="button">
                       <div class="d-flex align-items-center">
@@ -550,12 +539,10 @@
                         <span class="nav-link-text ps-1">Quy trình</span>
                       </div>
                     </a>
-
                   </li>
                 </ul>
               </li>
               <% } %>
-
                 <% if (permisionArr.includes('MANAGE_SALES_STAFF') || permisionArr.includes('MANAGE_PLANNED_PROJECTS'))
                   { %>
                   <li class="nav-item">
@@ -597,7 +584,6 @@
                     </ul>
                   </li>
                   <% } %>
-
                     <% if (permisionArr.includes('MANAGE_PROJECTS')) { %>
                       <li class="nav-item">
                         <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
@@ -618,7 +604,6 @@
                         </ul>
                       </li>
                       <% } %>
-
                         <% if (permisionArr.includes('MANAGE_MAINTENANCE')) { %>
                           <li class="nav-item">
                             <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
@@ -648,7 +633,6 @@
                           </li>
                           <% } %>
                             <% } %>
-
                               <li class="nav-item">
                                 <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                                   <div class="col-auto navbar-vertical-label">Quy trình làm việc</div>
